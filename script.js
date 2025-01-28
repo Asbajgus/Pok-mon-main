@@ -1,7 +1,7 @@
 let pikachuName = "Pikachu"
 
 let pokemonList = [
-   { pokedexNumber: 1, name: "Bulbasaur", type: ["Grass", "Poison"], maxHealth: 45, currentHealth: 45, image: "Png/bulbasaur/Bulbasaur.png", level: 5 },
+  { pokedexNumber: 1, name: "Bulbasaur", type: ["Grass", "Poison"], maxHealth: 45, currentHealth: 45, image: "Png/bulbasaur/Bulbasaur.png", level: 5 },
   { pokedexNumber: 2, name: "Ivysaur", type: ["Grass", "Poison"], maxHealth: 60, currentHealth: 60, image: "Png/bulbasaur/Ivysaur.png", level: 16 },
   { pokedexNumber: 3, name: "Venusaur", type: ["Grass", "Poison"], maxHealth: 80, currentHealth: 80, image: "Png/bulbasaur/Venusaur.png", level: 32 },
   { pokedexNumber: 4, name: "Charmander", type: ["Fire"], maxHealth: 39, currentHealth: 39, image: "Png/charmander/Charmander.png", level: 5 },
@@ -145,18 +145,17 @@ let pokemonList = [
   { pokedexNumber: 142, name: "Aerodactyl", type: ["Rock", "Flying"], maxHealth: 80, currentHealth: 80, image: "Png/aerodactyl/Aerodactyl.png", level: 40 },
   { pokedexNumber: 143, name: "Snorlax", type: ["Normal"], maxHealth: 160, currentHealth: 160, image: "Png/snorlax/Snorlax.png", level: 50 }
 ]
-]
 
 let legendaryList = [
   // Legendary Pokémon
-  { pokedexNumber: 144, name: "Articuno", type: ["Ice", "Flying"], maxHealth: 90, currentHealth: 90, image: "png/articuno/Articuno.png", level: 50 },
-  { pokedexNumber: 145, name: "Zapdos", type: ["Electric", "Flying"], maxHealth: 90, currentHealth: 90, image: "png/zapdos/Zapdos.png", level: 50 },
-  { pokedexNumber: 146, name: "Moltres", type: ["Fire", "Flying"], maxHealth: 90, currentHealth: 90, image: "png/moltres/Moltres.png", level: 50 },
-  { pokedexNumber: 147, name: "Dratini", type: ["Dragon"], maxHealth: 41, currentHealth: 41, image: "png/dratini/Dratini.png", level: 5 },
-  { pokedexNumber: 148, name: "Dragonair", type: ["Dragon"], maxHealth: 61, currentHealth: 61, image: "png/dratini/Dragonair.png", level: 30 },
-  { pokedexNumber: 149, name: "Dragonite", type: ["Dragon", "Flying"], maxHealth: 91, currentHealth: 91, image: "png/dratini/Dragonite.png", level: 55 },
-  { pokedexNumber: 150, name: "Mewtwo", type: ["Psychic"], maxHealth: 106, currentHealth: 106, image: "png/mew/Mewtwo.png", level: 70 },
-  { pokedexNumber: 151, name: "Mew", type: ["Psychic"], maxHealth: 100, currentHealth: 100, image: "png/mew/Mew.png", level: 5 }
+  { pokedexNumber: 144, name: "Articuno", type: ["Ice", "Flying"], maxHealth: 90, currentHealth: 90, image: "Png/articuno/Articuno.png", level: 50 },
+  { pokedexNumber: 145, name: "Zapdos", type: ["Electric", "Flying"], maxHealth: 90, currentHealth: 90, image: "Png/zapdos/Zapdos.png", level: 50 },
+  { pokedexNumber: 146, name: "Moltres", type: ["Fire", "Flying"], maxHealth: 90, currentHealth: 90, image: "Png/moltres/Moltres.png", level: 50 },
+  { pokedexNumber: 147, name: "Dratini", type: ["Dragon"], maxHealth: 41, currentHealth: 41, image: "Png/dratini/Dratini.png", level: 5 },
+  { pokedexNumber: 148, name: "Dragonair", type: ["Dragon"], maxHealth: 61, currentHealth: 61, image: "Png/dratini/Dragonair.png", level: 30 },
+  { pokedexNumber: 149, name: "Dragonite", type: ["Dragon", "Flying"], maxHealth: 91, currentHealth: 91, image: "Png/dratini/Dragonite.png", level: 55 },
+  { pokedexNumber: 150, name: "Mewtwo", type: ["Psychic"], maxHealth: 106, currentHealth: 106, image: "Png/mew/Mewtwo.png", level: 70 },
+  { pokedexNumber: 151, name: "Mew", type: ["Psychic"], maxHealth: 100, currentHealth: 100, image: "Png/mew/Mew.png", level: 5 }
 ]
 
 let shinyList = [
@@ -350,26 +349,169 @@ let possiblePokemon = [
   "✨Mr. Mime✨", "✨Scyther✨", "✨Jynx✨", "✨Electabuzz✨", "✨Magmar✨", "✨Pinsir✨", "✨Ditto✨", "✨Omanyte✨", "✨Omastar✨",
   "✨Snorlax✨", "✨Dragonite✨", "✨Dragonair✨", "✨Dratini✨"
 ];
-// Player and Game State
+
+// List of items with price, chance, and usage for the shop
+const shopItems = [
+  { name: "Amulet Coin", type: "amuletcoin", price: 500, usage: "Doubles prize money after battle.", chance: 0.1 },
+  { name: "Basement Key", type: "basementkey", price: 1000, usage: "Unlocks the basement in Johto.", chance: 0.05 },
+  { name: "Berry", type: "berries", price: 10, usage: "Can be used to heal a Pokémon or cure status conditions.", chance: 0.3 },
+  { name: "Berry Juice", type: "berryjuice", price: 20, usage: "Restores 20 HP to a Pokémon.", chance: 0.2 },
+  { name: "Berserk Gene", type: "berserkgene", price: 500, usage: "Raises a Pokémon’s attack, but makes it confused.", chance: 0.05 },
+  { name: "Big Mushroom", type: "bigmushroom", price: 100, usage: "A rare mushroom that can be sold for a high price.", chance: 0.15 },
+  { name: "Big Pearl", type: "bigpearl", price: 500, usage: "A valuable pearl that can be sold.", chance: 0.1 },
+  { name: "Bitter Berry", type: "bitterberry", price: 30, usage: "Cures a Pokémon of paralysis.", chance: 0.2 },
+  { name: "Black Apricorn", type: "blackapricorn", price: 20, usage: "Can be used to make Pokéballs.", chance: 0.1 },
+  { name: "Black Belt", type: "blackbelt", price: 200, usage: "Increases the power of Fighting-type moves.", chance: 0.1 },
+  { name: "Black Glasses", type: "blackglasses", price: 200, usage: "Increases the power of Dark-type moves.", chance: 0.1 },
+  { name: "Blue Apricorn", type: "blueapricorn", price: 20, usage: "Can be used to make Pokéballs.", chance: 0.1 },
+  { name: "Brick Piece", type: "brickpiece", price: 50, usage: "A fragment of a broken brick.", chance: 0.05 },
+  { name: "Bright Powder", type: "brightpowder", price: 300, usage: "Increases the holder's evasion.", chance: 0.05 },
+  { name: "Burnt Berry", type: "burntberry", price: 30, usage: "Cures a Pokémon's burn condition.", chance: 0.15 },
+  { name: "Card Key", type: "cardkey", price: 1000, usage: "Used to open doors in certain buildings.", chance: 0.05 },
+  { name: "Charcoal", type: "charcoal", price: 200, usage: "Increases the power of Fire-type moves.", chance: 0.1 },
+  { name: "Cleanse Tag", type: "cleansetag", price: 150, usage: "Prevents wild Pokémon from appearing.", chance: 0.1 },
+  { name: "Clear Bell", type: "clearbell", price: 2000, usage: "Used to summon certain Legendary Pokémon.", chance: 0.05 },
+  { name: "Dragon Fang", type: "dragonfang", price: 500, usage: "Increases the power of Dragon-type moves.", chance: 0.1 },
+  { name: "Dragon Scale", type: "dragonscale", price: 500, usage: "A special scale used to evolve certain Pokémon.", chance: 0.1 },
+  { name: "Egg Ticket", type: "eggticket", price: 200, usage: "Used for getting a special Pokémon egg.", chance: 0.05 },
+  { name: "Energy Powder", type: "energypowder", price: 30, usage: "Restores 50 HP to a Pokémon.", chance: 0.1 },
+  { name: "Energy Root", type: "energyroot", price: 50, usage: "Restores 200 HP to a Pokémon.", chance: 0.05 },
+  { name: "Everstone", type: "everstone", price: 300, usage: "Prevents a Pokémon from evolving.", chance: 0.1 },
+  { name: "Fast Ball", type: "fastball", price: 100, usage: "A Pokéball that works better on fast Pokémon.", chance: 0.1 },
+  { name: "Flower Mail", type: "flowermail", price: 50, usage: "Mail with a flower design.", chance: 0.1 },
+  { name: "Focus Band", type: "focusband", price: 200, usage: "Prevents the Pokémon from fainting if it would take a hit that would knock it out.", chance: 0.1 },
+  { name: "Friend Ball", type: "friendball", price: 200, usage: "A Pokéball that makes the caught Pokémon more friendly.", chance: 0.1 },
+  { name: "Gold Berry", type: "goldberry", price: 500, usage: "Restores all HP of a Pokémon.", chance: 0.05 },
+  { name: "Gold Leaf", type: "goldleaf", price: 100, usage: "A rare leaf that can be sold.", chance: 0.1 },
+  { name: "Gorgeous Box", type: "gorgeousbox", price: 1000, usage: "A beautiful box used for storing rare items.", chance: 0.05 },
+  { name: "Green Apricorn", type: "greenapricorn", price: 20, usage: "Can be used to make Pokéballs.", chance: 0.1 },
+  { name: "GS Ball", type: "gsball", price: 1000, usage: "A mysterious Pokéball that can catch a special Pokémon.", chance: 0.05 },
+  { name: "Hard Stone", type: "hardstone", price: 200, usage: "Increases the power of Rock-type moves.", chance: 0.1 },
+  { name: "Heal Powder", type: "healpowder", price: 50, usage: "Heals all status conditions of a Pokémon.", chance: 0.2 },
+  { name: "Heavy Ball", type: "heavyball", price: 200, usage: "A Pokéball that works better on heavier Pokémon.", chance: 0.1 },
+  { name: "HM06", type: "hm06", price: 500, usage: "Contains the move 'Toxic'.", chance: 0.1 },
+  { name: "HM07", type: "hm07", price: 500, usage: "Contains the move 'Whirlpool'.", chance: 0.1 },
+  { name: "Ice Berry", type: "iceberry", price: 30, usage: "Cures a Pokémon of freezing.", chance: 0.15 },
+  { name: "King's Rock", type: "kingsrock", price: 500, usage: "A rock that can evolve certain Pokémon when held.", chance: 0.1 },
+  { name: "Leek", type: "leek", price: 100, usage: "Raises the power of Flying-type moves.", chance: 0.1 },
+  { name: "Leftovers", type: "leftovers", price: 500, usage: "Heals the holder for 1/16 of its max HP each turn.", chance: 0.1 },
+  { name: "Level Ball", type: "levelball", price: 150, usage: "A Pokéball that works better on Pokémon with lower levels.", chance: 0.1 },
+  { name: "Light Ball", type: "lightball", price: 300, usage: "Doubles the Special Attack and Special Defense of Pikachu.", chance: 0.05 },
+  { name: "Litebluemail", type: "litebluemail", price: 50, usage: "Mail with a blue theme.", chance: 0.1 },
+  { name: "Lost Item", type: "lostitem", price: 50, usage: "A lost item that can be returned.", chance: 0.1 },
+  { name: "Love Ball", type: "loveball", price: 200, usage: "A Pokéball that works better on Pokémon of the opposite gender.", chance: 0.1 },
+  { name: "Lovely Mail", type: "lovelymail", price: 50, usage: "Mail with a cute design.", chance: 0.1 },
+  { name: "Lucky Egg", type: "luckyegg", price: 1000, usage: "Increases experience earned in battle.", chance: 0.05 },
+  { name: "Lucky Punch", type: "luckypunch", price: 300, usage: "Raises the power of the holder’s Fighting-type moves.", chance: 0.1 },
+  { name: "Lure Ball", type: "lureball", price: 200, usage: "A Pokéball that works better on Pokémon caught with a fishing rod.", chance: 0.1 },
+  // The rest of the items will be added similarly
+];
+
+// ====== UI View for Shop ======
+function openShop() {
+  app.innerHTML = `
+    <div class="shopContainer">
+      <h1>Shop</h1>
+      <div class="currencyBox">Currency: $${playerCurrency}</div>
+      <div class="shopItems">
+        ${shopItems.map(item => `
+          <div class="shopItem">
+            <div>${item.name} - $${item.price}</div>
+            <div><small>${item.usage}</small></div>
+            <div>Drop Rate: ${Math.round(item.chance * 100)}%</div>
+            <button onclick="buyItem('${item.type}', ${item.price})">Buy</button>
+          </div>
+        `).join('')}
+      </div>
+      <div class="buttonContainer outlinedBox">
+        <div class="button" data-action="find-another">Back</div>
+      </div>
+    </div>
+    ${warningMessage ? `
+      <div class="warningMessageBox">
+        <p>${warningMessage}</p>
+      </div>` : ''}
+  `;
+  setupButtonListeners();
+}
+
+// ====== Buy Item Logic ======
+function buyItem(itemType, price) {
+  const item = shopItems.find(item => item.type === itemType);
+  if (!item) return;
+
+  if (playerCurrency >= price) {
+    playerCurrency -= price;
+    playerItems[itemType] = (playerItems[itemType] || 0) + 1;
+    showWarningMessage(`You bought 1 ${item.name}!`);
+  } else {
+    showWarningMessage("Not enough currency!");
+  }
+  updateView();
+}
+// ====== State Management ======
 let randomPokemon = null;
 let playerName = "Peter";
-let playerImage = "png/red.png";
-let playerPokemon = [];
-let playerItems = { pokeballs: 10, greatballs: 5, ultraballs: 2 };
+let playerImage = "Png/red.png";
+let playerPokemon = [
+  { pokedexNumber: 131, name: "Lapras", type: ["Water", "Ice"], maxHealth: 130, currentHealth: 130, image: "Png/lapras/Lapras.png", level: 40 }
+]; // Including Lapras as a permanent Pokémon
+let playerItems = { pokeballs: 10, greatballs: 5, ultraballs: 2, potions: 3, berries: 2 }; 
 let playerCurrency = 500;
+let selectedPokeball = null;
+let warningMessage = '';  
+let itemDropRate = 0.1;
 
-// App Element
+// List of items that can be found
+const itemList = [
+  { name: "Potion", type: "potions", chance: 0.5 },
+  { name: "Berry", type: "berries", chance: 0.3 },
+  { name: "Pokéball", type: "pokeballs", chance: 0.1 },
+  { name: "Greatball", type: "greatballs", chance: 0.05 }
+];
+
+// ====== Initialization ======
 const app = document.getElementById("app");
-
-// Initialize the game view
 updateView();
 
+// ====== View Update ======
 function updateView() {
-  getRandomPokemon(); // Get a new random Pokémon
+  getRandomPokemon();
+  handleItemDrop();
+  renderApp();
+}
 
-  // Simulate Pokémon HP
-  randomPokemon.currentHP = Math.floor(Math.random() * randomPokemon.maxHP);
-  
+function getRandomPokemon() {
+  const pokemonList = [
+    { pokedexNumber: 51, name: "Dugtrio", type: ["Ground"], maxHealth: 35, currentHealth: 35, image: "Png/diglett/Dugtrio.png", level: 26 },
+    { pokedexNumber: 52, name: "Meowth", type: ["Normal"], maxHealth: 40, currentHealth: 40, image: "Png/meowth/Meowth.png", level: 5 },
+    { pokedexNumber: 53, name: "Persian", type: ["Normal"], maxHealth: 65, currentHealth: 65, image: "Png/meowth/Persian.png", level: 28 },
+    { pokedexNumber: 54, name: "Psyduck", type: ["Water"], maxHealth: 50, currentHealth: 50, image: "Png/psyduck/Psyduck.png", level: 5 },
+    { pokedexNumber: 55, name: "Golduck", type: ["Water"], maxHealth: 80, currentHealth: 80, image: "Png/psyduck/Golduck.png", level: 33 },
+    { pokedexNumber: 56, name: "Mankey", type: ["Fighting"], maxHealth: 40, currentHealth: 40, image: "Png/mankey/Mankey.png", level: 5 },
+    { pokedexNumber: 57, name: "Primeape", type: ["Fighting"], maxHealth: 65, currentHealth: 65, image: "Png/mankey/Primeape.png", level: 28 },
+    { pokedexNumber: 58, name: "Growlithe", type: ["Fire"], maxHealth: 55, currentHealth: 55, image: "Png/growlithe/Growlithe.png", level: 5 },
+    { pokedexNumber: 59, name: "Arcanine", type: ["Fire"], maxHealth: 90, currentHealth: 90, image: "Png/growlithe/Arcanine.png", level: 40 }
+  ];
+  randomPokemon = pokemonList[Math.floor(Math.random() * pokemonList.length)];
+}
+
+function handleItemDrop() {
+  if (Math.random() < itemDropRate) {
+    const randomItem = getRandomItem();
+    if (randomItem) {
+      playerItems[randomItem.type]++;
+      showWarningMessage(`You found a ${randomItem.name}!`);
+    }
+  }
+}
+
+function getRandomItem() {
+  const possibleItems = itemList.filter(item => Math.random() < item.chance);
+  return possibleItems.length > 0 ? possibleItems[Math.floor(Math.random() * possibleItems.length)] : null;
+}
+
+function renderApp() {
   app.innerHTML = `
     <div class="container">
       <div class="opposingPokemon">
@@ -394,25 +536,93 @@ function updateView() {
         </div>
       </div>
     </div>
+    ${warningMessage ? `
+      <div class="warningMessageBox">
+        <p>${warningMessage}</p>
+      </div>` : ''}
   `;
-  
   setupButtonListeners();
 }
 
+// ====== Event Handlers ======
 function setupButtonListeners() {
   document.querySelectorAll('.button').forEach(button => {
     const action = button.getAttribute('data-action');
-    
-    switch (action) {
-      case 'catch': button.addEventListener('click', attemptCatchPokemon); break;
-      case 'find-another': button.addEventListener('click', updateView); break;
-      case 'show-pokemon': button.addEventListener('click', showPokemon); break;
-      case 'show-bag': button.addEventListener('click', showBag); break;
-      case 'shop': button.addEventListener('click', openShop); break;
-    }
+    button.addEventListener('click', () => {
+      switch (action) {
+        case 'catch':
+          attemptCatchPokemon();
+          break;
+        case 'find-another':
+          updateView();
+          break;
+        case 'show-pokemon':
+          showPokemon();
+          break;
+        case 'show-bag':
+          showBag();
+          break;
+        case 'shop':
+          openShop();
+          break;
+      }
+    });
   });
 }
 
+// ====== Core Game Logic ======
+function attemptCatchPokemon() {
+  if (!selectedPokeball) {
+    showWarningMessage("You need to select a Pokéball first!");
+    return;
+  }
+
+  const level = randomPokemon.level;
+  const baseCatchRate = 255;
+  const catchModifier = getCatchModifier();
+
+  if (catchModifier === 0) return;
+
+  const catchChance = Math.min(1, (baseCatchRate * catchModifier) / (3 * level + 1));
+  const randomNumber = Math.random();
+
+  if (randomNumber < catchChance) {
+    catchPokemon();
+  } else {
+    failedCatchView();
+  }
+}
+
+function getCatchModifier() {
+  if (!selectedPokeball) {
+    showWarningMessage("Please select a Pokéball from your Bag first!");
+    return 0;
+  }
+
+  if (playerItems[selectedPokeball] > 0) {
+    playerItems[selectedPokeball]--;
+    switch (selectedPokeball) {
+      case 'ultraballs':
+        return 2.5;
+      case 'greatballs':
+        return 1.5;
+      case 'pokeballs':
+        return 1;
+      default:
+        return 0;
+    }
+  } else {
+    showWarningMessage(`You are out of ${selectedPokeball}!`);
+    return 0;
+  }
+}
+
+function catchPokemon() {
+  playerPokemon.push(randomPokemon);
+  caughtPokemonView();
+}
+
+// ====== UI Views ======
 function caughtPokemonView() {
   const lastCaughtPokemon = playerPokemon[playerPokemon.length - 1];
   const reward = lastCaughtPokemon.level * 10;
@@ -428,6 +638,10 @@ function caughtPokemonView() {
         <div class="button" data-action="show-pokemon">Show Your Pokémon</div>
       </div>
     </div>
+    ${warningMessage ? `
+      <div class="warningMessageBox">
+        <p>${warningMessage}</p>
+      </div>` : ''}
   `;
   setupButtonListeners();
 }
@@ -443,43 +657,13 @@ function failedCatchView() {
         <div class="button" data-action="show-pokemon">Show Your Pokémon</div>
       </div>
     </div>
+    ${warningMessage ? `
+      <div class="warningMessageBox">
+        <p>${warningMessage}</p>
+      </div>` : ''}
   `;
   setupButtonListeners();
-}
-
-function attemptCatchPokemon() {
-  const level = randomPokemon.level;
-  const baseCatchRate = 255;
-  const catchModifier = getCatchModifier();
-  const catchChance = Math.min(1, (baseCatchRate * catchModifier) / (3 * level + 1));
-  const randomNumber = Math.random();
-
-  if (randomNumber < catchChance) {
-    catchPokemon();
-  } else {
-    failedCatchView();
-  }
-}
-
-function getCatchModifier() {
-  if (playerItems.ultraballs > 0) {
-    playerItems.ultraballs--;
-    return 2.5;
-  } else if (playerItems.greatballs > 0) {
-    playerItems.greatballs--;
-    return 1.5;
-  } else if (playerItems.pokeballs > 0) {
-    playerItems.pokeballs--;
-    return 1;
-  } else {
-    showWarningMessage("You have no Pokéballs left!");
-    return 0;
-  }
-}
-
-function catchPokemon() {
-  playerPokemon.push(randomPokemon);
-  caughtPokemonView();
+  document.querySelector('[data-action="try-again"]').addEventListener('click', attemptCatchPokemon);
 }
 
 function showPokemon() {
@@ -498,6 +682,10 @@ function showPokemon() {
         <div class="button" data-action="find-another">Find Another</div>
       </div>
     </div>
+    ${warningMessage ? `
+      <div class="warningMessageBox">
+        <p>${warningMessage}</p>
+      </div>` : ''}
   `;
   setupButtonListeners();
 }
@@ -506,13 +694,25 @@ function showBag() {
   app.innerHTML = `
     <div class="bagContainer">
       <h1>Your Bag</h1>
-      <div class="bagItem">Pokéballs: ${playerItems.pokeballs}</div>
-      <div class="bagItem">Greatballs: ${playerItems.greatballs}</div>
-      <div class="bagItem">Ultraballs: ${playerItems.ultraballs}</div>
+      <div class="bagItem">Pokéballs: ${playerItems.pokeballs}
+        <button onclick="selectPokeball('pokeballs')">Use</button>
+      </div>
+      <div class="bagItem">Greatballs: ${playerItems.greatballs}
+        <button onclick="selectPokeball('greatballs')">Use</button>
+      </div>
+      <div class="bagItem">Ultraballs: ${playerItems.ultraballs}
+        <button onclick="selectPokeball('ultraballs')">Use</button>
+      </div>
+      <div class="bagItem">Potions: ${playerItems.potions}</div>
+      <div class="bagItem">Berries: ${playerItems.berries}</div>
       <div class="buttonContainer outlinedBox">
-        <div class="button" data-action="find-another">Find Another</div>
+        <div class="button" data-action="find-another">Back</div>
       </div>
     </div>
+    ${warningMessage ? `
+      <div class="warningMessageBox">
+        <p>${warningMessage}</p>
+      </div>` : ''}
   `;
   setupButtonListeners();
 }
@@ -523,60 +723,54 @@ function openShop() {
       <h1>Shop</h1>
       <div class="currencyBox">Currency: $${playerCurrency}</div>
       <div class="shopItem">
-        <div>Pokéball - $20</div>
+        <div>Pokéball - 20 Pokecoins</div>
         <button onclick="buyItem('pokeballs', 20, 5)">Buy</button>
       </div>
       <div class="shopItem">
-        <div>Greatball - $50</div>
-        <button onclick="buyItem('greatballs', 50, 2)">Buy</button>
+        <div>Greatball - 50 Pokecoins</div>
+        <button onclick="buyItem('greatballs', 50, 5)">Buy</button>
       </div>
       <div class="shopItem">
-        <div>Ultraball - $100</div>
-        <button onclick="buyItem('ultraballs', 100, 1)">Buy</button>
+        <div>Ultraball - 100 Pokecoins</div>
+        <button onclick="buyItem('ultraballs', 100, 2)">Buy</button>
+      </div>
+      <div class="shopItem">
+        <div>Potion - 30 Pokecoins</div>
+        <button onclick="buyItem('potions', 30, 1)">Buy</button>
+      </div>
+      <div class="shopItem">
+        <div>Berry - 20 Pokecoins</div>
+        <button onclick="buyItem('berries', 20, 1)">Buy</button>
       </div>
       <div class="buttonContainer outlinedBox">
         <div class="button" data-action="find-another">Back</div>
       </div>
     </div>
+    ${warningMessage ? `
+      <div class="warningMessageBox">
+        <p>${warningMessage}</p>
+      </div>` : ''}
   `;
   setupButtonListeners();
 }
 
-function buyItem(item, cost, quantity) {
-  if (playerCurrency >= cost) {
-    playerCurrency -= cost;
-    playerItems[item] += quantity;
-    showWarningMessage(`You bought ${quantity} ${item} for $${cost}!`);
-    openShop(); // Re-open shop to update currency display
+function buyItem(item, price, amount) {
+  if (playerCurrency >= price) {
+    playerItems[item] += amount;
+    playerCurrency -= price;
+    showWarningMessage(`You bought ${amount} ${item}!`);
   } else {
-    showWarningMessage("You don't have enough money!");
+    showWarningMessage("Not enough Pokecoins!");
   }
 }
 
-function getRandomPokemon() {
-  const shinyChance = 0.000122;
-  const legendaryChance = 0.02;
-  const isShiny = Math.random() < shinyChance;
-  const isLegendary = Math.random() < legendaryChance;
-
-  if (isShiny && shinyList.length > 0) {
-    randomPokemon = shinyList[Math.floor(Math.random() * shinyList.length)];
-  } else if (isLegendary && legendaryList.length > 0) {
-    randomPokemon = legendaryList[Math.floor(Math.random() * legendaryList.length)];
-  } else if (pokemonList.length > 0) {
-    randomPokemon = pokemonList[Math.floor(Math.random() * pokemonList.length)];
-  } else {
-    randomPokemon = null;
-  }
+function selectPokeball(type) {
+  selectedPokeball = type;
+  warningMessage = '';  // Clear any warning message when a Pokéball is selected
+  updateView();
 }
 
 function showWarningMessage(message) {
-  const warningBox = document.createElement('div');
-  warningBox.className = 'warningBox';
-  warningBox.textContent = message;
-  app.appendChild(warningBox);
-
-  setTimeout(() => {
-    warningBox.remove();
-  }, 5000);
+  warningMessage = message;
+  updateView();
 }
