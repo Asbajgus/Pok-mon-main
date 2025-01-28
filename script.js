@@ -349,259 +349,233 @@ let possiblePokemon = [
   "✨Mr. Mime✨", "✨Scyther✨", "✨Jynx✨", "✨Electabuzz✨", "✨Magmar✨", "✨Pinsir✨", "✨Ditto✨", "✨Omanyte✨", "✨Omastar✨",
   "✨Snorlax✨", "✨Dragonite✨", "✨Dragonair✨", "✨Dratini✨"
 ];
-let randomPokemon = null; // The current Pokémon to be displayed
+// Player and Game State
+let randomPokemon = null;
 let playerName = "Peter";
-let playerImage = "png/red.png"
-let playerPokemon = []; // The list of caught Pokémon
-let playerItems = {
-  pokeballs: 10,
-  greatballs: 5,
-  ultraballs: 2
-};// The player's item inventory
-let playerCurrency = 500; // Player's currency
+let playerImage = "png/red.png";
+let playerPokemon = [];
+let playerItems = { pokeballs: 10, greatballs: 5, ultraballs: 2 };
+let playerCurrency = 500;
 
-let app = document.getElementById("app");
+// App Element
+const app = document.getElementById("app");
 
-updateView(); // Initial view update
+// Initialize the game view
+updateView();
 
 function updateView() {
   getRandomPokemon(); // Get a new random Pokémon
 
-  // Simulated HP for the Pokémon
-  randomPokemon.currentHP = Math.floor(Math.random() * randomPokemon.maxHP); // Randomize HP
-  app.innerHTML = /*HTML*/ `
-  <div class="container">
-    <div class="opposingPokemon">
-      <div><strong>${randomPokemon.name}</strong></div> 
-      <div>Level: ${randomPokemon.level}</div>
-      <img src="${randomPokemon.image}" alt="${randomPokemon.name}">
-   </div>
-    </div>
-    
-    <div class="bottomScreen">
-      <div class="player">
-        <img src="${playerImage}" alt="Player">
-        <div>${playerName}</div>
-        <div>Currency: $${playerCurrency}</div>
+  // Simulate Pokémon HP
+  randomPokemon.currentHP = Math.floor(Math.random() * randomPokemon.maxHP);
+  
+  app.innerHTML = `
+    <div class="container">
+      <div class="opposingPokemon">
+        <div><strong>${randomPokemon.name}</strong></div>
+        <div>Level: ${randomPokemon.level}</div>
+        <img src="${randomPokemon.image}" alt="${randomPokemon.name}">
       </div>
 
-      <div class="buttonContainer outlinedBox">
-        <div class="button" data-action="catch">Catch</div>    
-        <div class="button" data-action="find-another">Find Another</div>
-        <div class="button" data-action="show-pokemon">Show Your Pokémon</div>       
-        <div class="button" data-action="show-bag">Bag</div>
-        <div class="button" data-action="shop">Shop</div>
+      <div class="bottomScreen">
+        <div class="player">
+          <img src="${playerImage}" alt="Player">
+          <div>${playerName}</div>
+          <div>Currency: $${playerCurrency}</div>
+        </div>
+
+        <div class="buttonContainer outlinedBox">
+          <div class="button" data-action="catch">Catch</div>
+          <div class="button" data-action="find-another">Find Another</div>
+          <div class="button" data-action="show-pokemon">Show Your Pokémon</div>
+          <div class="button" data-action="show-bag">Bag</div>
+          <div class="button" data-action="shop">Shop</div>
+        </div>
       </div>
     </div>
-  </div>
+  `;
+  
+  setupButtonListeners();
+}
+
+function setupButtonListeners() {
+  document.querySelectorAll('.button').forEach(button => {
+    const action = button.getAttribute('data-action');
+    
+    switch (action) {
+      case 'catch': button.addEventListener('click', attemptCatchPokemon); break;
+      case 'find-another': button.addEventListener('click', updateView); break;
+      case 'show-pokemon': button.addEventListener('click', showPokemon); break;
+      case 'show-bag': button.addEventListener('click', showBag); break;
+      case 'shop': button.addEventListener('click', openShop); break;
+    }
+  });
+}
+
+function caughtPokemonView() {
+  const lastCaughtPokemon = playerPokemon[playerPokemon.length - 1];
+  const reward = lastCaughtPokemon.level * 10;
+  playerCurrency += reward;
+
+  app.innerHTML = `
+    <div class="caughtContainer">
+      <h1>You caught ${lastCaughtPokemon.name}!</h1>
+      <img src="${lastCaughtPokemon.image}" alt="${lastCaughtPokemon.name}">
+      <div>You earned $${reward}!</div>
+      <div class="buttonContainer outlinedBox">
+        <div class="button" data-action="find-another">Find Another</div>
+        <div class="button" data-action="show-pokemon">Show Your Pokémon</div>
+      </div>
+    </div>
   `;
   setupButtonListeners();
+}
 
-  function setupButtonListeners() {
-    const buttons = document.querySelectorAll('.button');
-
-    buttons.forEach(button => {
-      const action = button.getAttribute('data-action');
-      if (action === 'catch') {
-        button.addEventListener('click', attemptCatchPokemon);
-      } else if (action === 'find-another') {
-        button.addEventListener('click', updateView);
-      } else if (action === 'show-pokemon') {
-        button.addEventListener('click', showPokemon);
-      } else if (action === 'show-bag') {
-        button.addEventListener('click', showBag);
-      } else if (action === 'shop') {
-        button.addEventListener('click', openShop);
-      }
-    });
-  }
-
-
-  function caughtPokemonView() {
-    const lastCaughtPokemon = playerPokemon[playerPokemon.length - 1];
-    const reward = lastCaughtPokemon.level * 10; // Reward currency based on Pokémon level
-    playerCurrency += reward;
-
-    app.innerHTML = /*HTML*/`
-  <div class="caughtContainer">
-    <h1>You caught ${lastCaughtPokemon.name}!</h1>
-    <img src="${lastCaughtPokemon.image}" alt="${lastCaughtPokemon.name}">
-    <div>You earned $${reward}!</div>
-    <div class="buttonContainer outlinedBox">
-      <div class="button" data-action="find-another">Find Another</div>
-      <div class="button" data-action="show-pokemon">Show Your Pokémon</div>
+function failedCatchView() {
+  app.innerHTML = `
+    <div class="failedContainer">
+      <h1>${randomPokemon.name} escaped!</h1>
+      <img src="${randomPokemon.image}" alt="${randomPokemon.name}">
+      <div class="buttonContainer outlinedBox">
+        <div class="button" data-action="find-another">Find Another</div>
+        <div class="button" data-action="try-again">Try Again</div>
+        <div class="button" data-action="show-pokemon">Show Your Pokémon</div>
+      </div>
     </div>
-  </div>
   `;
-    setupButtonListeners();
+  setupButtonListeners();
+}
+
+function attemptCatchPokemon() {
+  const level = randomPokemon.level;
+  const baseCatchRate = 255;
+  const catchModifier = getCatchModifier();
+  const catchChance = Math.min(1, (baseCatchRate * catchModifier) / (3 * level + 1));
+  const randomNumber = Math.random();
+
+  if (randomNumber < catchChance) {
+    catchPokemon();
+  } else {
+    failedCatchView();
   }
+}
 
-  function failedCatchView() {
-    app.innerHTML = /*HTML*/`
-  <div class="failedContainer">
-    <h1>${randomPokemon.name} escaped!</h1>
-    <img src="${randomPokemon.image}" alt="${randomPokemon.name}">
-    <div class="buttonContainer outlinedBox">
-      <div class="button" data-action="find-another">Find Another</div>
-      <div class="button" data-action="try-again">Try Again</div>
-      <div class="button" data-action="show-pokemon">Show Your Pokémon</div>
-    </div>
-  </div>
-  `;
-    setupButtonListeners();
+function getCatchModifier() {
+  if (playerItems.ultraballs > 0) {
+    playerItems.ultraballs--;
+    return 2.5;
+  } else if (playerItems.greatballs > 0) {
+    playerItems.greatballs--;
+    return 1.5;
+  } else if (playerItems.pokeballs > 0) {
+    playerItems.pokeballs--;
+    return 1;
+  } else {
+    showWarningMessage("You have no Pokéballs left!");
+    return 0;
   }
+}
 
-  function attemptCatchPokemon() {
-    const level = randomPokemon.level;
-    const baseCatchRate = 255; // Similar to the base catch rate in Pokémon games
-    const maxLevel = 100; // Maximum level
+function catchPokemon() {
+  playerPokemon.push(randomPokemon);
+  caughtPokemonView();
+}
 
-    // Determine which ball is used
-    let catchModifier = 1;
-    if (playerItems.ultraballs > 0) {
-      playerItems.ultraballs--;
-      catchModifier = 2.5;
-    } else if (playerItems.greatballs > 0) {
-      playerItems.greatballs--;
-      catchModifier = 1.5;
-    } else if (playerItems.pokeballs > 0) {
-      playerItems.pokeballs--;
-      catchModifier = 1;
-    } else {
-      showWarningMessage("You have no Pokéballs left!");
-      return;
-    }
-
-    const catchChance = Math.min(1, (baseCatchRate * catchModifier) / (3 * level + 1)); // Formula to reduce catch chance based on level
-    const randomNumber = Math.random();
-
-    if (randomNumber < catchChance) {
-      catchPokemon(); // Player successfully catches the Pokémon
-    } else {
-      failedCatchView(); // Pokémon escapes
-    }
-  }
-  function catchPokemon() {
-    playerPokemon.push(randomPokemon); // Add the current Pokémon to the player's collection
-    caughtPokemonView(); // Show the caught Pokémon screen
-  }
-
-  function showPokemon() {
-    let playerPokemonHtml = playerPokemon.map(pokemon => `
+function showPokemon() {
+  const playerPokemonHtml = playerPokemon.map(pokemon => `
     <div class="pokemon">
       <img src="${pokemon.image}" alt="${pokemon.name}">
       <div><strong>${pokemon.name}</strong> (Level: ${pokemon.level})</div>
     </div>
   `).join('');
 
-    app.innerHTML = /*HTML*/`
-  <div class="playerPokemonContainer">
-    <h1>Your Pokémon</h1>
-    <div class="playerPokemonList">
-      ${playerPokemonHtml || '<p>You have not caught any Pokémon yet.</p>'}
+  app.innerHTML = `
+    <div class="playerPokemonContainer">
+      <h1>Your Pokémon</h1>
+      <div class="playerPokemonList">${playerPokemonHtml || '<p>You have not caught any Pokémon yet.</p>'}</div>
+      <div class="buttonContainer outlinedBox">
+        <div class="button" data-action="find-another">Find Another</div>
+      </div>
     </div>
-    <div class="buttonContainer outlinedBox">
-      <div class="button" data-action="find-another">Find Another</div>
-    </div>
-  </div>
   `;
-    setupButtonListeners();
-  }
+  setupButtonListeners();
+}
 
-  function showBag() {
-    app.innerHTML = /*HTML*/`
-  <div class="bagContainer">
-    <h1>Your Bag</h1>
-    <div class="bagItem">
-      <div>Pokéballs: ${playerItems.pokeballs}</div>
+function showBag() {
+  app.innerHTML = `
+    <div class="bagContainer">
+      <h1>Your Bag</h1>
+      <div class="bagItem">Pokéballs: ${playerItems.pokeballs}</div>
+      <div class="bagItem">Greatballs: ${playerItems.greatballs}</div>
+      <div class="bagItem">Ultraballs: ${playerItems.ultraballs}</div>
+      <div class="buttonContainer outlinedBox">
+        <div class="button" data-action="find-another">Find Another</div>
+      </div>
     </div>
-    <div class="bagItem">
-    <div>Greatballs: ${playerItems.greatballs}</div>
-    </div>
-    <div class="bagItem">
-      <div>Ultraballs: ${playerItems.ultraballs}</div>
-    </div>
-    <div class="buttonContainer outlinedBox">
-      <div class="button" data-action="find-another">Find Another</div>
-    </div>
-  </div>
   `;
-    setupButtonListeners();
-  }
+  setupButtonListeners();
+}
 
-  function openShop() {
-    app.innerHTML = /*HTML*/`
-  <div class="shopContainer">
-    <h1>Shop</h1>
-
-    <!-- Currency Display Box -->
-    <div class="currencyBox">
-      <span>Currency: $${playerCurrency}</span>
+function openShop() {
+  app.innerHTML = `
+    <div class="shopContainer">
+      <h1>Shop</h1>
+      <div class="currencyBox">Currency: $${playerCurrency}</div>
+      <div class="shopItem">
+        <div>Pokéball - $20</div>
+        <button onclick="buyItem('pokeballs', 20, 5)">Buy</button>
+      </div>
+      <div class="shopItem">
+        <div>Greatball - $50</div>
+        <button onclick="buyItem('greatballs', 50, 2)">Buy</button>
+      </div>
+      <div class="shopItem">
+        <div>Ultraball - $100</div>
+        <button onclick="buyItem('ultraballs', 100, 1)">Buy</button>
+      </div>
+      <div class="buttonContainer outlinedBox">
+        <div class="button" data-action="find-another">Back</div>
+      </div>
     </div>
-
-    <!-- Shop items -->
-    <div class="shopItem">
-      <div>Pokéball - $20</div>
-      <button onclick="buyItem('pokeballs', 20, 5)">Buy</button>
-    </div>
-    <div class="shopItem">
-      <div>Greatball - $50</div>
-      <button onclick="buyItem('greatballs', 50, 2)">Buy</button>
-    </div>
-    <div class="shopItem">
-      <div>Ultraball - $100</div>
-      <button onclick="buyItem('ultraballs', 100, 1)">Buy</button>
-    </div>
-
-    <!-- Back button -->
-    <div class="buttonContainer outlinedBox">
-      <div class="button" data-action="find-another">Back</div>
-    </div>
-  </div>
   `;
-    setupButtonListeners();
-  }
+  setupButtonListeners();
+}
 
-  function buyItem(item, cost, quantity) {
-    if (playerCurrency >= cost) {
-      playerCurrency -= cost;
-      playerItems[item] += quantity;
-      showWarningMessage(`You bought ${quantity} ${item} for $${cost}!`);
-      openShop(); // Re-open shop to update currency display
-    } else {
-      showWarningMessage("You don't have enough money!");
-    }
-  }
-
-  function getRandomPokemon() {
-    const shinyChance = 0.000122; // 0.0001% chance to encounter a shiny Pokémon
-    const legendaryChance = 0.02; // 2% chance to encounter a legendary Pokémon
-    const isShiny = Math.random() < shinyChance;
-    const isLegendary = Math.random() < legendaryChance;
-
-    if (isShiny && shinyList.length > 0) {
-      const randomNum = Math.floor(Math.random() * shinyList.length);
-      randomPokemon = shinyList[randomNum];
-    } else if (isLegendary && legendaryList.length > 0) {
-      const randomNum = Math.floor(Math.random() * legendaryList.length);
-      randomPokemon = legendaryList[randomNum];
-    } else if (pokemonList.length > 0) {
-      const randomNum = Math.floor(Math.random() * pokemonList.length);
-      randomPokemon = pokemonList[randomNum];
-    } else {
-      randomPokemon = null;
-    }
-  }
-
-  function showWarningMessage(message) {
-    const warningBox = document.createElement('div');
-    warningBox.className = 'warningBox';
-    warningBox.textContent = message;
-    app.appendChild(warningBox);
-
-    setTimeout(() => {
-      warningBox.remove();
-    }, 5000); // Warning lasts for 5 seconds
+function buyItem(item, cost, quantity) {
+  if (playerCurrency >= cost) {
+    playerCurrency -= cost;
+    playerItems[item] += quantity;
+    showWarningMessage(`You bought ${quantity} ${item} for $${cost}!`);
+    openShop(); // Re-open shop to update currency display
+  } else {
+    showWarningMessage("You don't have enough money!");
   }
 }
 
+function getRandomPokemon() {
+  const shinyChance = 0.000122;
+  const legendaryChance = 0.02;
+  const isShiny = Math.random() < shinyChance;
+  const isLegendary = Math.random() < legendaryChance;
+
+  if (isShiny && shinyList.length > 0) {
+    randomPokemon = shinyList[Math.floor(Math.random() * shinyList.length)];
+  } else if (isLegendary && legendaryList.length > 0) {
+    randomPokemon = legendaryList[Math.floor(Math.random() * legendaryList.length)];
+  } else if (pokemonList.length > 0) {
+    randomPokemon = pokemonList[Math.floor(Math.random() * pokemonList.length)];
+  } else {
+    randomPokemon = null;
+  }
+}
+
+function showWarningMessage(message) {
+  const warningBox = document.createElement('div');
+  warningBox.className = 'warningBox';
+  warningBox.textContent = message;
+  app.appendChild(warningBox);
+
+  setTimeout(() => {
+    warningBox.remove();
+  }, 5000);
+}
