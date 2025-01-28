@@ -351,7 +351,7 @@ let possiblePokemon = [
 ];
 let randomPokemon = null; // The current Pokémon to be displayed
 let playerName = "Peter";
-let playerImage = "Pok-mon-main/png
+let playerImage = "/png
 /red.png";
 let playerPokemon = []; // The list of caught Pokémon
 let playerItems = {
