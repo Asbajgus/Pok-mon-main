@@ -604,3 +604,4 @@ function updateView() {
     }, 5000); // Warning lasts for 5 seconds
   }
 }
+
