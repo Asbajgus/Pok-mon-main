@@ -1,3 +1,9 @@
+/* Font settings */
+@font-face {
+  font-family: 'PKMN RBYGSC';
+  src: url('Font/PKMN RBYGSC.ttf') format('truetype');
+}
+
 * {
   font-family: 'PKMN RBYGSC', sans-serif;
 }
@@ -17,6 +23,7 @@ body {
   align-items: center;
   justify-content: center;
   background-color: white;
+  transform: translateX(700px);
 }
 
 #app {
@@ -223,7 +230,7 @@ body {
 }
 
 .opposingPokemon {
-  transform: translate(1100px, -200px);
+  transform: translate(-500px, 200px);
 }
 
 .buttonContainer {
@@ -231,6 +238,8 @@ body {
 }
 
 .player{
-  transform: translateX(400px);
+  transform: translateX(-700px);
 }
+
+
 
