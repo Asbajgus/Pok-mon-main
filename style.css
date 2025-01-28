@@ -1,9 +1,3 @@
-/* Font settings */
-@font-face {
-  font-family: 'PKMN RBYGSC';
-  src: url('Font/PKMN RBYGSC.ttf') format('truetype');
-}
-
 * {
   font-family: 'PKMN RBYGSC', sans-serif;
 }
