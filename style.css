@@ -1,0 +1,242 @@
+/* Font settings */
+@font-face {
+  font-family: 'PKMN RBYGSC';
+  src: url('Font/PKMN RBYGSC.ttf') format('truetype');
+}
+
+* {
+  font-family: 'PKMN RBYGSC', sans-serif;
+}
+
+html::-webkit-scrollbar {
+  display: none;
+}
+
+/* General body and app container */
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+}
+
+#app {
+  height: 98vh;
+  width: 98vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+}
+
+/* Pokémon display */
+.opposingPokemon, .player {
+  text-align: center;
+}
+
+.opposingPokemon img, .caughtContainer img, .failedContainer img, 
+.pokemon img {
+  width: 300px;
+  height: auto;
+  image-rendering: pixelated;
+}
+
+.player img {
+  width: 400px;
+}
+
+.caughtContainer, .failedContainer, .playerPokemonContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.caughtContainer h1, .failedContainer h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.pokemon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pokemon img {
+  width: 64px;
+}
+
+.pokemon div {
+  margin-top: 5px;
+  font-size: 14px;
+}
+
+.playerPokemonList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 10px;
+  padding: 20px;
+}
+
+/* Button styles */
+.buttonContainer, .shopContainer .buttonContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  width: 320px;
+  height: 200px;
+  padding: 10px;
+  border: 3px solid black;
+  background-color: white;
+  box-shadow: 4px 4px black;
+  border-radius: 10px;
+  margin-top: 20px;
+}
+
+.buttonContainer div, .shopContainer .openShopButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  width: 150px;
+  height: 10px;
+  color: black;
+  background-color: white;
+  box-shadow: 2px 2px white;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.buttonContainer div:hover, .shopContainer .openShopButton:hover {
+  background-color: #d3d3d3;
+}
+
+.shopContainer .openShopButton {
+  padding: 15px 30px;
+  background-color: #f8d030; 
+  border: 3px solid black;
+  box-shadow: 4px 4px black;
+  width: 80%; 
+}
+
+.shopContainer .openShopButton:hover {
+  background-color: #f7b500; 
+}
+
+/* Shop container */
+.shopContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  background-color: white;
+  border: 3px solid black;
+  box-shadow: 4px 4px black;
+  border-radius: 10px;
+  width: 80%; 
+  max-width: 500px;
+}
+
+.shopContainer h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+/* Shop item */
+.shopItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  padding: 10px;
+  background-color: white;
+  border: 2px solid white;
+  border-radius: 8px;
+  box-shadow: 2px 2px white;
+  font-size: 18px;
+  font-weight: bold;
+  width: 100%;
+}
+
+.shopItem button {
+  font-family: 'PKMN RBYGSC', sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 5px 15px;
+  border: 2px solid white;
+  background-color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  box-shadow: 2px 2px white;
+}
+
+.shopItem button:hover {
+  background-color: white;
+}
+
+/* Currency Display */
+.currencyBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 20px;
+  margin-bottom: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  background-color: white;
+  border: 3px solid black;
+  border-radius: 10px;
+  box-shadow: 4px 4px black;
+  width: 80%; 
+  max-width: 300px;
+}
+
+.currencyBox span {
+  color: black;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* Bottom screen layout */
+.bottomScreen {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-direction: row;
+  width: 100%;
+  padding: 0 20px;
+}
+
+.hpContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-family: 'Pokemon GB', sans-serif; /* Use a pixelated font for nostalgia */
+  width: 200px;
+  margin-top: 10px;
+}
+
+.opposingPokemon {
+  transform: translate(1100px, -200px);
+}
+
+.buttonContainer {
+  transform: translateX(-500px);
+}
+
+.player{
+  transform: translateX(400px);
+}
+
