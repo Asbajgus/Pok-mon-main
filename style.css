@@ -12,7 +12,6 @@ html::-webkit-scrollbar {
   display: none;
 }
 
-/* General body and app container */
 body {
   margin: 0;
   padding: 0;
